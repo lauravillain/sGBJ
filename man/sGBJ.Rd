@@ -20,5 +20,5 @@ The GBJ value and it's pvalue associated
 Compute the pvalues and GBJ value associated with a pathway and survival
 }
 \examples{
-sGBJ(surv,counts_pathway)
+# sGBJ(surv,counts_pathway)
 }

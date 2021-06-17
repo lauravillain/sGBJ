@@ -6,7 +6,7 @@
 
 #' @return The GBJ value and it's pvalue associated
 #' @examples
-#' sGBJ(surv,counts_pathway)
+#' # sGBJ(surv,counts_pathway)
 
 sGBJ=function(surv,counts_pathway,covariates=NULL){
 
