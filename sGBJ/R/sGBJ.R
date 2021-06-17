@@ -1,17 +1,12 @@
-# Hello, world!
-#
-# This is an example function named 'hello'
-# which prints 'Hello, world!'.
-#
-# You can learn more about package authoring with RStudio at:
-#
-#   http://r-pkgs.had.co.nz/
-#
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Install Package:           'Ctrl + Shift + B'
-#   Check Package:             'Ctrl + Shift + E'
-#   Test Package:              'Ctrl + Shift + T'
+#' Compute the pvalues and GBJ value associated with a pathway and survival
+#'
+#' @param surv a surv object of size n
+#' @param counts_pathway a data frame of the counts for the particular pathway of interest of size nxp
+#' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
+
+#' @return The GBJ value and it's pvalue associated
+#' @examples
+#' sGBJ(surv,counts_pathway)
 
 sGBJ=function(surv,counts_pathway,covariates=NULL){
 
