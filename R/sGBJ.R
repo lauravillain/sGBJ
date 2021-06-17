@@ -129,7 +129,7 @@ sGBJ=function(surv,counts_pathway,covariates=NULL){
 
   epsilon=stats::cor(t(Z_matrix))
 
-  scores_GBJ=list(test_stats=Z,cor_mat=epsilon)
+  # scores_GBJ=list(test_stats=Z,cor_mat=epsilon)
   GBJOut <- GBJ::GBJ(test_stats=Z, cor_mat=epsilon)
   return(GBJOut)
 }
