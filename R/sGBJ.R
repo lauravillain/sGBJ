@@ -5,6 +5,11 @@
 #' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
 
 #' @return The GBJ value and it's pvalue associated
+#'
+#' @importFrom survival coxph
+#' @importFrom stats cor
+#' @importFrom GBJ GBJ
+#'
 #' @examples
 #' # sGBJ(surv,counts_pathway)
 
@@ -17,7 +22,7 @@ sGBJ=function(surv,counts_pathway,covariates=NULL){
   if (is.null(covariates)){
     datas=cbind(surv,counts_pathway)
     for (i in 1:(dim(datas)[2]-1)){
-      model=try(coxph(surv~datas[,i+1]))
+      model=try(survival::coxph(surv~datas[,i+1]))
       if (length(model)>10){
         Z[i]=model$coefficients/summary(model)$coefficients[3]
         if (is.na(Z[i])){
@@ -46,7 +51,7 @@ sGBJ=function(surv,counts_pathway,covariates=NULL){
       datas_perm=cbind(surv_perm,counts_pathway)
       perm_OK=TRUE
       for (j in 1:(length(Z))){
-        model=try(coxph(surv_perm~datas_perm[,j+1]))
+        model=try(survival::coxph(surv_perm~datas_perm[,j+1]))
         if (length(model)>10){
           Z_matrix[j,i]=model$coefficients/summary(model)$coefficients[3]
           if( is.na(Z_matrix[j,i])){
@@ -69,7 +74,7 @@ sGBJ=function(surv,counts_pathway,covariates=NULL){
     datas=cbind(surv,covariates,counts_pathway)
     size_covariates=dim(covariates)[2]
     for (i in 1:(dim(datas)[2]-(size_covariates+1))){
-      model=try(coxph(surv~datas[,i+(size_covariates+1)]+datas[,2:(1+size_covariates)]))
+      model=try(survival::coxph(surv~datas[,i+(size_covariates+1)]+datas[,2:(1+size_covariates)]))
       if (length(model)>10){
         Z[i]=model$coefficients[1]/summary(model)$coefficients[1,3]
         if (is.na(Z[i])){
@@ -99,7 +104,7 @@ sGBJ=function(surv,counts_pathway,covariates=NULL){
       datas_perm=cbind(surv_perm,covariates_perm,counts_pathway)
       perm_OK=TRUE
       for (j in 1:(length(Z))){
-        model=try(coxph(surv_perm~datas[,j+(size_covariates+1)]+datas_perm[,2:(1+size_covariates)], data = datas_perm))
+        model=try(survival::coxph(surv_perm~datas[,j+(size_covariates+1)]+datas_perm[,2:(1+size_covariates)], data = datas_perm))
         if (length(model)>10){
           Z_matrix[j,i]=model$coefficients[1]/summary(model)$coefficients[1,3]
           if( is.na(Z_matrix[j,i])){
@@ -122,9 +127,9 @@ sGBJ=function(surv,counts_pathway,covariates=NULL){
 
   }
 
-  epsilon=cor(t(Z_matrix))
+  epsilon=stats::cor(t(Z_matrix))
 
   scores_GBJ=list(test_stats=Z,cor_mat=epsilon)
-  GBJOut <- GBJ(test_stats=Z, cor_mat=epsilon)
+  GBJOut <- GBJ::GBJ(test_stats=Z, cor_mat=epsilon)
   return(GBJOut)
 }
