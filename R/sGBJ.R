@@ -1,4 +1,6 @@
-#' Compute the pvalues and GBJ value associated with a pathway and survival
+#' sGBJ
+#'
+#' @description Compute the pvalues and GBJ value associated with a pathway and survival
 #'
 #' @param surv a surv object of size n
 #' @param counts_pathway a data frame of the counts for the particular pathway of interest of size nxp

@@ -2,7 +2,7 @@
 % Please edit documentation in R/sGBJ.R
 \name{sGBJ}
 \alias{sGBJ}
-\title{Compute the pvalues and GBJ value associated with a pathway and survival}
+\title{sGBJ}
 \usage{
 sGBJ(surv, counts_pathway, covariates = NULL)
 }
