@@ -12,7 +12,7 @@
 
 sGBJ=function(surv,counts_pathway,covariates=NULL,nperm=300){
 
-  scores_GBJ=sGBJ_scores(surv,counts_pathway,covariates=NULL,nperm=300)
+  scores_GBJ=sGBJ_scores(surv,counts_pathway,covariates,nperm)
   GBJOut <- GBJ(test_stats=scores_GBJ$test_stats, cor_mat=scores_GBJ$cor_mat)
   return(GBJOut)
 }
