@@ -17,9 +17,9 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
   # Computation of scores if there is no covariates
 
   if (is.null(covariates)){
-    datas=cbind(surv,counts_pathway)
-    for (i in 1:(dim(datas)[2]-1)){
-      model=try(coxph(surv~datas[,i+1]))
+    datas=counts_pathway
+    for (i in 1:(dim(datas)[2])){
+      model=try(coxph(surv~datas[,i]))
       if (length(model)>10){
         Z[i]=model$coefficients/summary(model)$coefficients[3]
         if (is.na(Z[i])){
@@ -35,7 +35,7 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
     if (length(remove_Z)!=0){
       Z=Z[-remove_Z]
       counts_pathway=counts_pathway[,-remove_Z]
-      datas=cbind(surv,covariates,counts_pathway)
+      datas=cbind(covariates,counts_pathway)
       datas=as.data.frame(datas)
     }
 
@@ -46,10 +46,10 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
     while(i<=nperm){
       perm=sample(length(surv))
       surv_perm=surv[perm]
-      datas_perm=cbind(surv_perm,counts_pathway)
+      datas_perm=counts_pathway
       perm_OK=TRUE
       for (j in 1:(length(Z))){
-        model=try(coxph(surv_perm~datas_perm[,j+1]))
+        model=try(coxph(surv_perm~datas_perm[,j]))
         if (length(model)>10){
           Z_matrix[j,i]=model$coefficients/summary(model)$coefficients[3]
           if( is.na(Z_matrix[j,i])){
@@ -70,10 +70,15 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
 
   }else{
     #Computation of score is there is covariates
-    datas=cbind(surv,covariates,counts_pathway)
-    size_covariates=dim(covariates)[2]
-    for (i in 1:(dim(datas)[2]-(size_covariates+1))){
-      model=try(coxph(surv~datas[,i+(size_covariates+1)]+datas[,2:(1+size_covariates)]))
+    datas=cbind(covariates,counts_pathway)
+    if (dim(covariates)==NULL){
+      size_covariates=1
+    }else{
+      size_covariates=dim(covariates)[2]
+    }
+
+    for (i in 1:(dim(datas)[2]-(size_covariates))){
+      model=try(coxph(surv~datas[,i+(size_covariates)]+datas[,2:(size_covariates)]))
       if (length(model)>10){
         Z[i]=model$coefficients[1]/summary(model)$coefficients[1,3]
         if (is.na(Z[i])){
@@ -89,7 +94,7 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
     if (length(remove_Z)!=0){
       Z=Z[-remove_Z]
       counts_pathway=counts_pathway[,-remove_Z]
-      datas=cbind(surv,covariates,counts_pathway)
+      datas=cbind(covariates,counts_pathway)
       datas=as.data.frame(datas)
     }
 
@@ -102,10 +107,10 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
       perm=sample(length(surv))
       surv_perm=surv[perm]
       covariates_perm=covariates[perm,]
-      datas_perm=cbind(surv_perm,covariates_perm,counts_pathway)
+      datas_perm=cbind(covariates_perm,counts_pathway)
       perm_OK=TRUE
       for (j in 1:(length(Z))){
-        model=try(coxph(surv_perm~datas[,j+(size_covariates+1)]+datas_perm[,2:(1+size_covariates)], data = datas_perm))
+        model=try(coxph(surv_perm~datas[,j+(size_covariates)]+datas_perm[,2:(size_covariates)], data = datas_perm))
         if (length(model)>10){
           Z_matrix[j,i]=model$coefficients[1]/summary(model)$coefficients[1,3]
           if( is.na(Z_matrix[j,i])){
