@@ -82,7 +82,7 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
   }else{
     #Computation of score is there is covariates
     datas=cbind(covariates,counts_pathway)
-    if (dim(covariates)==NULL){
+    if (is.null(dim(covariates))){
       size_covariates=1
     }else{
       size_covariates=dim(covariates)[2]
