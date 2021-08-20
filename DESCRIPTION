@@ -9,7 +9,7 @@ Description: This packages offers an extention of the GBJ statistic for
     a pathway of gene expression linked with patient survival. Covariates
     can be added to evaluate the effect of gene expression ajusted on
     covariates.
-License: What license is it under?
+License: GPL (>= 3)
 Imports:
     GBJ,
     stats,
