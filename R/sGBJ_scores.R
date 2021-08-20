@@ -3,11 +3,22 @@
 #' @param surv a surv object of size n
 #' @param counts_pathway a data frame of the counts for the particular pathway of interest of size nxp
 #' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
-
+#' @param nperm number of permutations to perform to estimate the matrix epsilon (default=300)
+#'
+#' @importFrom stats cor
+#' @export
+#'
 #' @return The GBJ value and it's pvalue associated
 #' @examples
-#' sGBJ(surv,counts_pathway)
-
+#' n <- 5
+#' surv_data <- data.frame(Time = runif(n = n, min = 0, max = 100),
+#'                         event = rbinom(n = n, size = 1, prob = 0.5))
+#' surv <- survival::Surv(time = surv_data$Time, event = surv_data$event)
+#'
+#' counts_pathway <- data.frame(P1 = rnorm(n = n),
+#'                              P2 = rnorm(n = n))
+#'
+#' sGBJ::sGBJ_scores(surv,counts_pathway, nperm = 2)
 sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
 
 
@@ -19,7 +30,7 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
   if (is.null(covariates)){
     datas=counts_pathway
     for (i in 1:(dim(datas)[2])){
-      model=try(coxph(surv~datas[,i]))
+      model=try(survival::coxph(surv~datas[,i]))
       if (length(model)>10){
         Z[i]=model$coefficients/summary(model)$coefficients[3]
         if (is.na(Z[i])){
@@ -49,7 +60,7 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
       datas_perm=counts_pathway
       perm_OK=TRUE
       for (j in 1:(length(Z))){
-        model=try(coxph(surv_perm~datas_perm[,j]))
+        model=try(survival::coxph(surv_perm~datas_perm[,j]))
         if (length(model)>10){
           Z_matrix[j,i]=model$coefficients/summary(model)$coefficients[3]
           if( is.na(Z_matrix[j,i])){
@@ -78,7 +89,7 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
     }
 
     for (i in 1:(dim(datas)[2]-(size_covariates))){
-      model=try(coxph(surv~datas[,i+(size_covariates)]+datas[,2:(size_covariates)]))
+      model=try(survival::coxph(surv~datas[,i+(size_covariates)]+datas[,2:(size_covariates)]))
       if (length(model)>10){
         Z[i]=model$coefficients[1]/summary(model)$coefficients[1,3]
         if (is.na(Z[i])){
@@ -110,7 +121,7 @@ sGBJ_scores=function(surv,counts_pathway,covariates=NULL,nperm=300){
       datas_perm=cbind(covariates_perm,counts_pathway)
       perm_OK=TRUE
       for (j in 1:(length(Z))){
-        model=try(coxph(surv_perm~datas[,j+(size_covariates)]+datas_perm[,2:(size_covariates)], data = datas_perm))
+        model=try(survival::coxph(surv_perm~datas[,j+(size_covariates)]+datas_perm[,2:(size_covariates)], data = datas_perm))
         if (length(model)>10){
           Z_matrix[j,i]=model$coefficients[1]/summary(model)$coefficients[1,3]
           if( is.na(Z_matrix[j,i])){
