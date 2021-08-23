@@ -11,6 +11,11 @@ epsilon_matrix <- function(Z, perm, surv, counts_pathway, covariates = NULL){
   } else {
     covariates_perm=covariates[perm,]
     datas_perm=cbind(covariates_perm,counts_pathway)
+    if (is.null(dim(covariates))){
+      size_covariates=1
+    }else{
+      size_covariates=dim(covariates)[2]
+    }
   }
 
   while(i<=nperm){
@@ -21,25 +26,22 @@ epsilon_matrix <- function(Z, perm, surv, counts_pathway, covariates = NULL){
       } else {
         model=try(survival::coxph(surv_perm~datas[,j+(size_covariates)]+datas_perm[,2:(size_covariates)], data = datas_perm))
       }
-      if (length(model)>10){
+
+      if(length(model)>10){
         if(is.null(covariates)){
           Z_matrix[j,i]=model$coefficients/summary(model)$coefficients[3]
         } else {
           Z_matrix[j,i]=model$coefficients[1]/summary(model)$coefficients[1,3]
         }
-        if(is.na(Z_matrix[j,i])){
-          perm_OK=FALSE
-        } else{
-          if (abs(Z_matrix[j,i])==Inf){
-            perm_OK=FALSE
-          }
-        }
-      } else {
-        perm_OK=FALSE
       }
+
+      boolModel <- length(model) > 10
+      boolZna <- !is.na(Z_matrix[j,i])
+      boolZinf <- abs(Z_matrix[j,i]) != Inf
+
+      perm_OK <- boolModel & boolZna & boolZinf
     }
-    if (perm_OK==TRUE){
-      i=i+1
-    }
+    i <- i + perm_OK
   }
+  return(Z_matrix)
 }
