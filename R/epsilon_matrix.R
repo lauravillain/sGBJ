@@ -1,8 +1,17 @@
-epsilon_matrix <- function(Z, perm, surv, counts_pathway, covariates = NULL){
+#' .epsilon_matrix
+#'
+#' @description Compute the epsilon matrix by permutation for the sGBJ_scores() function.
+#'
+#' @param Z The score vector returned by .survival_scores() function.
+#' @param surv a surv object of size n
+#' @param counts_pathway a data frame of the counts for the particular pathway of interest of size nxp
+#' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
+#' @param nperm number of permutations to perform to estimate the matrix epsilon (default=300)
+#'
+#' @return The epsilon matrix.
+.epsilon_matrix <- function(Z, nperm, surv, counts_pathway, covariates = NULL){
 
-  Z_matrix<- matrix(nrow=(length(Z)), ncol=nperm)
-  Z_matrix[,1]=Z
-  i=2
+  # pre compute usefull parameter/data
   perm=sample(length(surv))
   surv_perm=surv[perm]
 
@@ -18,6 +27,12 @@ epsilon_matrix <- function(Z, perm, surv, counts_pathway, covariates = NULL){
     }
   }
 
+  # build Z_matrix
+  Z_matrix<- matrix(nrow=(length(Z)), ncol=nperm)
+  Z_matrix[,1]=Z
+  i=2
+
+  # fill Z_matrix
   while(i<=nperm){
     perm_OK=TRUE
     for (j in 1:(length(Z))){
@@ -43,5 +58,8 @@ epsilon_matrix <- function(Z, perm, surv, counts_pathway, covariates = NULL){
     }
     i <- i + perm_OK
   }
-  return(Z_matrix)
+
+  epsilon=cor(t(Z_matrix))
+
+  return(epsilon)
 }
