@@ -23,7 +23,7 @@
     if (is.null(dim(covariates))){
       size_covariates=1
     }else{
-      size_covariates=dim(covariates)[2]
+      size_covariates=ncol(covariates)
     }
   }
 
@@ -39,10 +39,11 @@
       if(is.null(covariates)){
         model=try(survival::coxph(surv_perm~datas_perm[,j]))
       } else {
-        model=try(survival::coxph(surv_perm~datas[,j+(size_covariates)]+datas_perm[,2:(size_covariates)], data = datas_perm))
+        model=try(survival::coxph(surv_perm~datas[,j+size_covariates]+datas_perm[,2:size_covariates], data = datas_perm))
       }
 
-      if(length(model)>10){
+      boolLengthModel <- length(model)>10
+      if(boolLengthModel){
         if(is.null(covariates)){
           Z_matrix[j,i]=model$coefficients/summary(model)$coefficients[3]
         } else {
@@ -50,11 +51,10 @@
         }
       }
 
-      boolModel <- length(model) > 10
       boolZna <- !is.na(Z_matrix[j,i])
       boolZinf <- abs(Z_matrix[j,i]) != Inf
 
-      perm_OK <- boolModel & boolZna & boolZinf
+      perm_OK <- boolLengthModel & boolZna & boolZinf
     }
     i <- i + perm_OK
   }

@@ -9,19 +9,19 @@
 #' @return A list of length 2 with the updated counts_pathway (same as counts_pathway but removing pathways for which survival model failed to converge) and the Z matrix.
 .survival_scores <- function(counts_pathway, covariates = NULL, surv){
   remove_Z=NULL
-  Z=numeric(dim(counts_pathway)[2])
+  Z=numeric(ncol(counts_pathway))
 
   if(is.null(covariates)){
     datas=counts_pathway
-    loopLength <- dim(datas)[2]
+    loopLength <- ncol(datas)
   } else {
     datas=cbind(covariates,counts_pathway)
     if (is.null(dim(covariates))){
       size_covariates=1
     }else{
-      size_covariates=dim(covariates)[2]
+      size_covariates=ncol(covariates)
     }
-    loopLength <- dim(datas)[2]-size_covariates
+    loopLength <- ncol(datas)-size_covariates
   }
 
   for (i in 1:loopLength){
@@ -29,11 +29,11 @@
     if(is.null(covariates)){
       model=try(survival::coxph(surv~datas[,i]))
     } else {
-      model=try(survival::coxph(surv~datas[,i+(size_covariates)]+datas[,2:(size_covariates)]))
+      model=try(survival::coxph(surv~datas[,i+size_covariates]+datas[,2:size_covariates]))
     }
 
-    if (length(model)>10){
-
+    boolLengthModel <- length(model)>10
+    if(boolLengthModel){
       if(is.null(covariates)){
         Z[i]=model$coefficients/summary(model)$coefficients[3]
       } else {
@@ -41,10 +41,9 @@
       }
     }
 
-    boolModel <- !(length(model) > 10)
     boolZna <- is.na(Z[i])
     boolZinf <- abs(Z[i]) == Inf
-    boolRemove <- boolModel | boolZna | boolZinf
+    boolRemove <- (!boolLengthModel) | boolZna | boolZinf
 
     if(boolRemove){
       remove_Z=c(remove_Z,i)
