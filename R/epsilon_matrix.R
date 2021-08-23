@@ -39,7 +39,7 @@
       if(is.null(covariates)){
         model=try(survival::coxph(surv_perm~datas_perm[,j]))
       } else {
-        model=try(survival::coxph(surv_perm~datas[,j+size_covariates]+datas_perm[,2:size_covariates], data = datas_perm))
+        model=try(survival::coxph(surv_perm~datas[,j+size_covariates]+datas_perm[,1:size_covariates], data = datas_perm))
       }
 
       boolLengthModel <- length(model)>10
