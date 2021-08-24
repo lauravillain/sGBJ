@@ -1,14 +1,22 @@
-Package: sGBJ
 Type: Package
+Package: sGBJ
 Title: Extention of the GBJ statistic for survival data
 Version: 0.1.0
 Author: Laura Villain, Thomas Ferte, Boris Hejblum
 Maintainer: Laura Villain <laura.villain@inria.fr>
-Description: This packages offers an extention of the GBJ statistic for survival data. It can compute the score and the pvalue associated with a pathway of gene expression linked with patient survival. Covariates can be added to evaluate the effect of gene expression ajusted on covariates.
-License: What license is it under?
+Description: This packages offers an extention of the GBJ statistic for
+    survival data. It can compute the score and the pvalue associated with
+    a pathway of gene expression linked with patient survival. Covariates
+    can be added to evaluate the effect of gene expression ajusted on
+    covariates.
+License: GPL (>= 3)
+Imports:
+    GBJ,
+    stats,
+    survival
 Encoding: UTF-8
 LazyData: true
-Imports:
-  survival,
-  GBJ,
 RoxygenNote: 7.1.1
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
