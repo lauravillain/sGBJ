@@ -31,4 +31,10 @@ Compute the pvalues and GBJ value associated with a pathway and survival
                               P2 = rnorm(n = n))
 
  sGBJ::sGBJ_scores(surv,counts_pathway, nperm = 2)
+
+ # with covariates
+
+ covariates <- data.frame(age = runif(n = n, 60, 90))
+
+ sGBJ_scores(surv,counts_pathway, nperm = 2, covariates = covariates)
 }

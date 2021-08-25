@@ -7,9 +7,10 @@
 #' @param counts_pathway a data frame of the counts for the particular pathway of interest of size nxp
 #' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
 #' @param nperm number of permutations to perform to estimate the matrix epsilon (default=300)
+#' @param datas Data used to fit survival model returned by .survival_scores() function.
 #'
 #' @return The epsilon matrix.
-.epsilon_matrix <- function(Z, nperm, surv, counts_pathway, covariates = NULL){
+.epsilon_matrix <- function(Z, nperm, surv, counts_pathway, covariates = NULL, datas){
 
   # pre compute usefull parameter/data
   perm=sample(length(surv))

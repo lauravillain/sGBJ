@@ -6,7 +6,7 @@
 #' @param counts_pathway a data frame of the counts for the particular pathway of interest of size nxp
 #' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
 #'
-#' @return A list of length 2 with the updated counts_pathway (same as counts_pathway but removing pathways for which survival model failed to converge) and the Z matrix.
+#' @return A list of length 3 with the updated counts_pathway (same as counts_pathway but removing pathways for which survival model failed to converge), the Z matrix and the datas used to fit survival model.
 .survival_scores <- function(counts_pathway, covariates = NULL, surv){
   remove_Z=NULL
   Z=numeric(ncol(counts_pathway))
@@ -58,5 +58,6 @@
   }
 
   return(list(Z = Z,
-              updatedCount_pathway = updatedCount_pathway))
+              updatedCount_pathway = updatedCount_pathway,
+              datas = datas))
 }
