@@ -13,7 +13,6 @@
 
   if(is.null(covariates)){
     datas=counts_pathway
-    loopLength <- ncol(datas)
   } else {
     datas=cbind(covariates,counts_pathway)
     if (is.null(dim(covariates))){
@@ -21,10 +20,9 @@
     }else{
       size_covariates=ncol(covariates)
     }
-    loopLength <- ncol(datas)-size_covariates
   }
 
-  for (i in 1:loopLength){
+  for (i in 1:ncol(counts_pathway)){
 
     if(is.null(covariates)){
       model=try(survival::coxph(surv~datas[,i]))
