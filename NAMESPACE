@@ -3,4 +3,5 @@
 export(sGBJ)
 export(sGBJ_scores)
 export(surv_calc_scores_stats)
+importFrom(stats,as.formula)
 importFrom(stats,cor)

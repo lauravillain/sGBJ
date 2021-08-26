@@ -22,7 +22,7 @@ The GBJ value and it's pvalue associated
 Compute the pvalues and GBJ value associated with a pathway and survival
 }
 \examples{
- n <- 5
+ n <- 100
  surv_data <- data.frame(Time = runif(n = n, min = 0, max = 100),
                          event = rbinom(n = n, size = 1, prob = 0.5))
  surv <- survival::Surv(time = surv_data$Time, event = surv_data$event)

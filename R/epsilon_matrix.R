@@ -40,7 +40,13 @@
       if(is.null(covariates)){
         model=try(survival::coxph(surv_perm~datas_perm[,j]))
       } else {
-        model=try(survival::coxph(surv_perm~datas[,j+size_covariates]+datas_perm[,1:size_covariates], data = datas_perm))
+        dfCox <- as.data.frame(cbind(datas[,j+size_covariates], datas_perm[,1:size_covariates]))
+        vecPathway <- colnames(dfCox)[1]
+        vecCovariates <- colnames(dfCox)[2:ncol(dfCox)]
+        formX <- paste(c(vecPathway, vecCovariates), collapse = " + ")
+        form <- as.formula(paste0("surv_perm ~ ", formX))
+
+        model=try(survival::coxph(form, data = dfCox))
       }
 
       boolLengthModel <- length(model)>10
