@@ -6,14 +6,15 @@
 #' @param counts_pathway a data frame of the counts for the particular pathway of interest of size nxp
 #' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
 #'
-#' @return A list of length 2 with the updated counts_pathway (same as counts_pathway but removing pathways for which survival model failed to converge) and the Z matrix.
+#' @importFrom stats as.formula
+#'
+#' @return A list of length 3 with the updated counts_pathway (same as counts_pathway but removing pathways for which survival model failed to converge), the Z matrix and the datas used to fit survival model.
 .survival_scores <- function(counts_pathway, covariates = NULL, surv){
   remove_Z=NULL
   Z=numeric(ncol(counts_pathway))
 
   if(is.null(covariates)){
     datas=counts_pathway
-    loopLength <- ncol(datas)
   } else {
     datas=cbind(covariates,counts_pathway)
     if (is.null(dim(covariates))){
@@ -21,15 +22,19 @@
     }else{
       size_covariates=ncol(covariates)
     }
-    loopLength <- ncol(datas)-size_covariates
   }
 
-  for (i in 1:loopLength){
+  for (i in 1:ncol(counts_pathway)){
 
     if(is.null(covariates)){
       model=try(survival::coxph(surv~datas[,i]))
     } else {
-      model=try(survival::coxph(surv~datas[,i+size_covariates]+datas[,1:size_covariates]))
+      vecCovariates <- colnames(datas)[1:size_covariates]
+      vecPathway <- colnames(datas)[i+size_covariates]
+      formX <- paste(c(vecPathway, vecCovariates), collapse = " + ")
+      form <- as.formula(paste0("surv ~ ", formX))
+
+      model=try(survival::coxph(form, data = datas))
     }
 
     boolLengthModel <- length(model)>10
@@ -58,5 +63,6 @@
   }
 
   return(list(Z = Z,
-              updatedCount_pathway = updatedCount_pathway))
+              updatedCount_pathway = updatedCount_pathway,
+              datas = datas))
 }

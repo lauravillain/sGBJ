@@ -14,7 +14,7 @@
 \item{surv}{a surv object of size n}
 }
 \value{
-A list of length 2 with the updated counts_pathway (same as counts_pathway but removing pathways for which survival model failed to converge) and the Z matrix.
+A list of length 3 with the updated counts_pathway (same as counts_pathway but removing pathways for which survival model failed to converge), the Z matrix and the datas used to fit survival model.
 }
 \description{
 Compute survival score.

@@ -7,9 +7,10 @@
 #' @param counts_pathway a data frame of the counts for the particular pathway of interest of size nxp
 #' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
 #' @param nperm number of permutations to perform to estimate the matrix epsilon (default=300)
+#' @param datas Data used to fit survival model returned by .survival_scores() function.
 #'
 #' @return The epsilon matrix.
-.epsilon_matrix <- function(Z, nperm, surv, counts_pathway, covariates = NULL){
+.epsilon_matrix <- function(Z, nperm, surv, counts_pathway, covariates = NULL, datas){
 
   # pre compute usefull parameter/data
   perm=sample(length(surv))
@@ -39,7 +40,13 @@
       if(is.null(covariates)){
         model=try(survival::coxph(surv_perm~datas_perm[,j]))
       } else {
-        model=try(survival::coxph(surv_perm~datas[,j+size_covariates]+datas_perm[,1:size_covariates], data = datas_perm))
+        dfCox <- as.data.frame(cbind(datas[,j+size_covariates], datas_perm[,1:size_covariates]))
+        vecPathway <- colnames(dfCox)[1]
+        vecCovariates <- colnames(dfCox)[2:ncol(dfCox)]
+        formX <- paste(c(vecPathway, vecCovariates), collapse = " + ")
+        form <- as.formula(paste0("surv_perm ~ ", formX))
+
+        model=try(survival::coxph(form, data = dfCox))
       }
 
       boolLengthModel <- length(model)>10
