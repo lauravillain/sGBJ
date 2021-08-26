@@ -23,8 +23,8 @@
 #'
 #' covariates <- data.frame(age = runif(n = n, 60, 90))
 #'
-#' null_mod <- survival::coxph(surv ~ age, data = covariates, x = TRUE)
-#' surv_reg_stats <- surv_calc_scores_stats(null_model = null_mod,
+#' null_model <- survival::coxph(surv ~ age, data = covariates, x = TRUE)
+#' surv_reg_stats <- surv_calc_scores_stats(null_model = null_model,
 #' factor_matrix = counts_pathway,
 #' nperm = 2)
 #'
@@ -32,6 +32,10 @@
 surv_calc_scores_stats <- function(null_model,
                                    factor_matrix,
                                    nperm = 300){
+
+  # check null_model
+  if(class(null_model) != "coxph") { stop("null_model must be a 'coxph' object from survival::coxph()") }
+  if(!any(names(null_model) == "x")) { stop("Please be sure to provide the 'x = TRUE' option to survival::coxph() function") }
 
   res <- sGBJ_scores(surv = null_model$y,
                      counts_pathway = factor_matrix,

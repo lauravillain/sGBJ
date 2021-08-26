@@ -32,8 +32,8 @@ counts_pathway <- data.frame(P1 = rnorm(n = n),
 
 covariates <- data.frame(age = runif(n = n, 60, 90))
 
-null_mod <- survival::coxph(surv ~ age, data = covariates, x = TRUE)
-surv_reg_stats <- surv_calc_scores_stats(null_model = null_mod,
+null_model <- survival::coxph(surv ~ age, data = covariates, x = TRUE)
+surv_reg_stats <- surv_calc_scores_stats(null_model = null_model,
 factor_matrix = counts_pathway,
 nperm = 2)
 
