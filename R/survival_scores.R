@@ -12,7 +12,7 @@
 .survival_scores <- function(counts_pathway, covariates = NULL, surv){
   remove_Z=NULL
   Z=numeric(ncol(counts_pathway))
-
+  
   if(is.null(covariates)){
     datas=counts_pathway
   } else {
@@ -23,20 +23,20 @@
       size_covariates=ncol(covariates)
     }
   }
-
+  
   for (i in 1:ncol(counts_pathway)){
-
+    
     if(is.null(covariates)){
       model=try(survival::coxph(surv~datas[,i]))
     } else {
       vecCovariates <- colnames(datas)[1:size_covariates]
-      vecPathway <- colnames(datas)[i+size_covariates]
+      vecPathway <- paste("datas[,",i+size_covariates,"]",sep="")
       formX <- paste(c(vecPathway, vecCovariates), collapse = " + ")
       form <- as.formula(paste0("surv ~ ", formX))
-
+      
       model=try(survival::coxph(form, data = datas))
     }
-
+    
     boolLengthModel <- length(model)>10
     if(boolLengthModel){
       if(is.null(covariates)){
@@ -45,23 +45,23 @@
         Z[i]=model$coefficients[1]/summary(model)$coefficients[1,3]
       }
     }
-
+    
     boolZna <- is.na(Z[i])
     boolZinf <- abs(Z[i]) == Inf
     boolRemove <- (!boolLengthModel) | boolZna | boolZinf
-
+    
     if(boolRemove){
       remove_Z=c(remove_Z,i)
     }
   }
-
+  
   if (length(remove_Z)!=0){
     Z=Z[-remove_Z]
     updatedCount_pathway = counts_pathway[,-remove_Z]
   } else {
     updatedCount_pathway = counts_pathway
   }
-
+  
   return(list(Z = Z,
               updatedCount_pathway = updatedCount_pathway,
               datas = datas))
