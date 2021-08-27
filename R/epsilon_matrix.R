@@ -38,6 +38,7 @@
       }else{
         covariates_perm=covariates[perm]
       }
+      datas_perm=cbind(covariates_perm,factor_matrix)
     }
     for (j in 1:(length(Z))){
       if(is.null(covariates)){
