@@ -33,8 +33,11 @@
     if(is.null(covariates)){
       datas_perm=factor_matrix
     } else {
-      covariates_perm=covariates[perm,]
-      datas_perm=cbind(covariates_perm,factor_matrix)
+      if (size_covariates>1){
+        covariates_perm=covariates[perm,]
+      }else{
+        covariates_perm=covariates[perm]
+      }
     }
     for (j in 1:(length(Z))){
       if(is.null(covariates)){
