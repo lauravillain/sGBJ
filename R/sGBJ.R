@@ -19,7 +19,6 @@
 #'
 #' sGBJ::sGBJ(surv,factor_matrix, nperm = 2)
 sGBJ=function(surv,factor_matrix,covariates=NULL,nperm=300){
-  
   scores_GBJ=sGBJ_scores(surv,factor_matrix,covariates,nperm)
   GBJOut <- GBJ::GBJ(test_stats=scores_GBJ$test_stats, cor_mat=scores_GBJ$cor_mat)
   return(GBJOut)
