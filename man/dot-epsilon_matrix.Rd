@@ -4,7 +4,7 @@
 \alias{.epsilon_matrix}
 \title{.epsilon_matrix}
 \usage{
-.epsilon_matrix(Z, nperm, surv, counts_pathway, covariates = NULL, datas)
+.epsilon_matrix(Z, nperm, surv, factor_matrix, covariates = NULL, datas)
 }
 \arguments{
 \item{Z}{The score vector returned by .survival_scores() function.}
@@ -13,7 +13,7 @@
 
 \item{surv}{a surv object of size n}
 
-\item{counts_pathway}{a data frame of the counts for the particular pathway of interest of size nxp}
+\item{factor_matrix}{a data frame of the counts for the particular pathway of interest of size nxp}
 
 \item{covariates}{a matrix nxl of the covariates to adjust (default=NULL)}
 

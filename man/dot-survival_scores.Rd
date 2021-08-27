@@ -4,17 +4,17 @@
 \alias{.survival_scores}
 \title{.survival_scores}
 \usage{
-.survival_scores(counts_pathway, covariates = NULL, surv)
+.survival_scores(factor_matrix, covariates = NULL, surv)
 }
 \arguments{
-\item{counts_pathway}{a data frame of the counts for the particular pathway of interest of size nxp}
+\item{factor_matrix}{a data frame of the counts for the particular pathway of interest of size nxp}
 
 \item{covariates}{a matrix nxl of the covariates to adjust (default=NULL)}
 
 \item{surv}{a surv object of size n}
 }
 \value{
-A list of length 3 with the updated counts_pathway (same as counts_pathway but removing pathways for which survival model failed to converge), the Z matrix and the datas used to fit survival model.
+A list of length 3 with the updated factor_matrix (same as factor_matrix but removing columns for which survival model failed to converge), the Z matrix and the datas used to fit survival model.
 }
 \description{
 Compute survival score.

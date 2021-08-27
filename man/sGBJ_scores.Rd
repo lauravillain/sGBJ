@@ -4,12 +4,12 @@
 \alias{sGBJ_scores}
 \title{Compute the pvalues and GBJ value associated with a pathway and survival}
 \usage{
-sGBJ_scores(surv, counts_pathway, covariates = NULL, nperm = 300)
+sGBJ_scores(surv, factor_matrix, covariates = NULL, nperm = 300)
 }
 \arguments{
 \item{surv}{a surv object of size n}
 
-\item{counts_pathway}{a data frame of the counts for the particular pathway of interest of size nxp}
+\item{factor_matrix}{a data frame of the counts for the particular pathway of interest of size nxp}
 
 \item{covariates}{a matrix nxl of the covariates to adjust (default=NULL)}
 
@@ -27,14 +27,14 @@ Compute the pvalues and GBJ value associated with a pathway and survival
                          event = rbinom(n = n, size = 1, prob = 0.5))
  surv <- survival::Surv(time = surv_data$Time, event = surv_data$event)
 
- counts_pathway <- data.frame(P1 = rnorm(n = n),
+ factor_matrix <- data.frame(P1 = rnorm(n = n),
                               P2 = rnorm(n = n))
 
- sGBJ::sGBJ_scores(surv,counts_pathway, nperm = 2)
+ sGBJ::sGBJ_scores(surv,factor_matrix, nperm = 2)
 
  # with covariates
 
  covariates <- data.frame(age = runif(n = n, 60, 90))
 
- sGBJ_scores(surv,counts_pathway, nperm = 2, covariates = covariates)
+ sGBJ_scores(surv,factor_matrix, nperm = 2, covariates = covariates)
 }

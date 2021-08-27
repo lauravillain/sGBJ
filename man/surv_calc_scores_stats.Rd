@@ -27,14 +27,14 @@ surv_data <- data.frame(Time = runif(n = n, min = 0, max = 100),
                         event = rbinom(n = n, size = 1, prob = 0.5))
 surv <- survival::Surv(time = surv_data$Time, event = surv_data$event)
 
-counts_pathway <- data.frame(P1 = rnorm(n = n),
+factor_matrix <- data.frame(P1 = rnorm(n = n),
                              P2 = rnorm(n = n))
 
 covariates <- data.frame(age = runif(n = n, 60, 90))
 
 null_model <- survival::coxph(surv ~ age, data = covariates, x = TRUE)
 surv_reg_stats <- surv_calc_scores_stats(null_model = null_model,
-factor_matrix = counts_pathway,
+factor_matrix = factor_matrix,
 nperm = 2)
 
 GBJ::GBJ(test_stats=surv_reg_stats$test_stats, cor_mat=surv_reg_stats$cor_mat)
