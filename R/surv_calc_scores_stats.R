@@ -18,14 +18,14 @@
 #'                         event = rbinom(n = n, size = 1, prob = 0.5))
 #' surv <- survival::Surv(time = surv_data$Time, event = surv_data$event)
 #'
-#' counts_pathway <- data.frame(P1 = rnorm(n = n),
+#' factor_matrix <- data.frame(P1 = rnorm(n = n),
 #'                              P2 = rnorm(n = n))
 #'
 #' covariates <- data.frame(age = runif(n = n, 60, 90))
 #'
 #' null_model <- survival::coxph(surv ~ age, data = covariates, x = TRUE)
 #' surv_reg_stats <- surv_calc_scores_stats(null_model = null_model,
-#' factor_matrix = counts_pathway,
+#' factor_matrix = factor_matrix,
 #' nperm = 2)
 #'
 #' GBJ::GBJ(test_stats=surv_reg_stats$test_stats, cor_mat=surv_reg_stats$cor_mat)
@@ -38,7 +38,7 @@ surv_calc_scores_stats <- function(null_model,
   if(!any(names(null_model) == "x")) { stop("Please be sure to provide the 'x = TRUE' option to survival::coxph() function") }
 
   res <- sGBJ_scores(surv = null_model$y,
-                     counts_pathway = factor_matrix,
+                     factor_matrix = factor_matrix,
                      nperm = nperm,
                      covariates = null_model$x)
 
