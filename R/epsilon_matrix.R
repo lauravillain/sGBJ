@@ -36,7 +36,7 @@
       if (size_covariates>1){
         covariates_perm=covariates[perm,]
       }else{
-        covariates_perm=covariates[perm]
+        covariates_perm=unlist(covariates)[perm]
       }
       datas_perm=cbind(covariates_perm,factor_matrix)
     }
