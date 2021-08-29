@@ -7,19 +7,19 @@
 surv_calc_scores_stats(null_model, factor_matrix, nperm = 300)
 }
 \arguments{
-\item{null_model}{An R cox model fitted with survival::coxph().}
+\item{null_model}{An R cox model fitted with \code{survival::coxph()}.}
 
-\item{factor_matrix}{An n*p matrix with each factor as one column. There should be no missing data.}
+\item{factor_matrix}{An \code{n x p} matrix with each factor as one column. There should be no missing data.}
 
 \item{nperm}{Number of permutations (default is 300)}
 }
 \value{
 A list with the elements:
-\item{test_stats}{The p score test statistics.}
-\item{cor_mat}{The p*p matrix giving the pairwise correlation of every two test statistics.}
+\item{test_stats}{The \code{p} score test statistics.}
+\item{cor_mat}{The \code{p x p} matrix giving the pairwise correlation of every test statistic pairs.}
 }
 \description{
-An adpatation of calc_scores_stats() to survival context. Wrapper of sGBJ_scores() function.
+An adaptation of \code{GBJ::calc_scores_stats()} to survival context. Wrapper of sGBJ_scores() function.
 }
 \examples{
 n <- 100
@@ -34,8 +34,9 @@ covariates <- data.frame(age = runif(n = n, 60, 90))
 
 null_model <- survival::coxph(surv ~ age, data = covariates, x = TRUE)
 surv_reg_stats <- surv_calc_scores_stats(null_model = null_model,
-factor_matrix = factor_matrix,
-nperm = 2)
+                                         factor_matrix = factor_matrix,
+                                         nperm = 2)#nperm = 300)
 
 GBJ::GBJ(test_stats=surv_reg_stats$test_stats, cor_mat=surv_reg_stats$cor_mat)
+
 }

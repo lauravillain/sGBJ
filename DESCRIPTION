@@ -1,15 +1,15 @@
 Type: Package
 Package: sGBJ
-Title: Extention of the GBJ statistic for survival data
+Title: sGBJ: survival extension of the Generalized Berk-Jones Test for Set-Based Inference in Genomics studies
 Version: 0.1.0
 Author: Laura Villain, Thomas Ferte, Boris Hejblum
-Maintainer: Laura Villain <laura.villain@inria.fr>
-Description: This packages offers an extention of the GBJ statistic for
-    survival data. It can compute the score and the pvalue associated with
-    a pathway of gene expression linked with patient survival. Covariates
-    can be added to evaluate the effect of gene expression ajusted on
-    covariates.
+Maintainer: Laura Villain <laura.villain@gmail.com>
+Description: This packages implements an extension of the GBJ statistic for
+    survival data. It computes the sGBJ statistic and its p-value for testing 
+    the association between a gene set and a time-to-event outcome with possible 
+    adjustment on additional covariates.
 License: GPL (>= 3)
+Depends: R (>= 3.5.0)
 Imports:
     GBJ,
     stats,

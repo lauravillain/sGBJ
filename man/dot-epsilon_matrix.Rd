@@ -4,24 +4,25 @@
 \alias{.epsilon_matrix}
 \title{.epsilon_matrix}
 \usage{
-.epsilon_matrix(Z, nperm, surv, factor_matrix, covariates = NULL, datas)
+.epsilon_matrix(Z, nperm, surv, factor_matrix, covariates = NULL, dat)
 }
 \arguments{
-\item{Z}{The score vector returned by .survival_scores() function.}
+\item{Z}{the score vector returned by \code{.survival_scores()} function.}
 
-\item{nperm}{number of permutations to perform to estimate the matrix epsilon (default=300)}
+\item{nperm}{number of permutations to perform to estimate the matrix epsilon.
+Default is \code{300}}
 
-\item{surv}{a surv object of size n}
+\item{surv}{a \code{\link[survival]{Surv}} object of size \code{n}}
 
-\item{factor_matrix}{a data frame of the counts for the particular pathway of interest of size nxp}
+\item{factor_matrix}{a data frame of the counts for the particular gene set of interest of size \code{n x p}}
 
-\item{covariates}{a matrix nxl of the covariates to adjust (default=NULL)}
+\item{covariates}{a \code{n x l} matrix of the covariates to adjust. Default is \code{NULL}}
 
-\item{datas}{Data used to fit survival model returned by .survival_scores() function.}
+\item{dat}{data used to fit survival model returned by \code{.survival_scores()} function.}
 }
 \value{
 The epsilon matrix.
 }
 \description{
-Compute the epsilon matrix by permutation for the sGBJ_scores() function.
+Compute the epsilon matrix by permutation for the \code{sGBJ_scores()} function.
 }

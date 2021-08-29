@@ -1,14 +1,17 @@
-#' Compute the pvalues and GBJ value associated with a pathway and survival
+#' Compute the sGBJ statistic along with its p-value quantifying the association
+#' between a gene set and survival outcome
 #'
-#' @param surv a surv object of size n
-#' @param factor_matrix a data frame of the counts for the particular pathway of interest of size nxp
-#' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
-#' @param nperm number of permutations to perform to estimate the matrix epsilon (default=300)
+#' @param surv a \code{\link[survival]{Surv}} object of length \code{n}
+#' @param factor_matrix a \code{n x p} \code{data.frame} of the expression for the
+#' particular gene set of interest being tested
+#' @param covariates a \code{n x l} matrix of the covariates to adjust upon. Default is \code{NULL}
+#' @param nperm number of permutations performed to estimate the \code{epsilon} matrix.
+#' Default is \code{300}.
 #'
 #' @importFrom stats cor
 #' @export
 #'
-#' @return The GBJ value and it's pvalue associated
+#' @return a list containing the sGBJ statistic estimation and its associated p-value
 #' @examples
 #'  n <- 100
 #'  surv_data <- data.frame(Time = runif(n = n, min = 0, max = 100),

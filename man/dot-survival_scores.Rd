@@ -14,7 +14,7 @@
 \item{surv}{a surv object of size n}
 }
 \value{
-A list of length 3 with the updated factor_matrix (same as factor_matrix but removing columns for which survival model failed to converge), the Z matrix and the datas used to fit survival model.
+A list of length 3 with the updated factor_matrix (same as factor_matrix but removing columns for which survival model failed to converge), the Z matrix and the data used to fit survival model.
 }
 \description{
 Compute survival score.

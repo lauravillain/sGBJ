@@ -1,13 +1,14 @@
-#' Compute the pvalues and GBJ value associated with a pathway and survival
+#' Compute the sGBJ statistic and its p-value quantifying a gene set expression association
+#' with survival
 #'
-#' @param surv a surv object of size n
-#' @param factor_matrix a data frame of the counts for the particular pathway of interest of size nxp
-#' @param covariates a matrix nxl of the covariates to adjust (default=NULL)
-#' @param nperm number of permutations to perform to estimate the matrix epsilon (default=300)
+#' @param surv a \code{\link[survival]{Surv}} object of length \code{n}
+#' @param factor_matrix a \code{n x p} \code{data.frame} of the expression for the
+#' particular gene set of interest being tested
+#' @param covariates a \code{n x l} matrix of the covariates to adjust upon. Default is \code{NULL}
+#' @param nperm number of permutations performed to estimate the \code{epsilon} matrix.
+#' Default is \code{300}.
 #'
-#'
-#' @export
-#' @return The GBJ value and it's pvalue associated
+#' @return The sGBJ statistic and its associated p-value associated
 #' @examples
 #' n <- 100
 #' surv_data <- data.frame(Time = runif(n = n, min = 0, max = 100),
@@ -18,8 +19,17 @@
 #'                              P2 = rnorm(n = n))
 #'
 #' sGBJ::sGBJ(surv,factor_matrix, nperm = 2)
-sGBJ=function(surv,factor_matrix,covariates=NULL,nperm=300){
-  scores_GBJ=sGBJ_scores(surv,factor_matrix,covariates,nperm)
-  GBJOut <- GBJ::GBJ(test_stats=scores_GBJ$test_stats, cor_mat=scores_GBJ$cor_mat)
+#'
+#' @export
+#'
+sGBJ <- function(surv, factor_matrix, covariates = NULL, nperm = 300){
+
+  scores_GBJ <- sGBJ_scores(surv, factor_matrix, covariates, nperm)
+
+  GBJOut <- GBJ::GBJ(test_stats = scores_GBJ$test_stats,
+                     cor_mat = scores_GBJ$cor_mat)
+
+  names(GBJOut) <- c("sGBJ_stat", "sGBJ_pvalue", "err_code")
+
   return(GBJOut)
 }

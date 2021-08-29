@@ -2,24 +2,26 @@
 % Please edit documentation in R/sGBJ.R
 \name{sGBJ}
 \alias{sGBJ}
-\title{Compute the pvalues and GBJ value associated with a pathway and survival}
+\title{Compute the sGBJ statistic and its p-value quantifying a gene set expression association
+with survival}
 \usage{
 sGBJ(surv, factor_matrix, covariates = NULL, nperm = 300)
 }
 \arguments{
 \item{surv}{a surv object of size n}
 
-\item{factor_matrix}{a data frame of the counts for the particular pathway of interest of size nxp}
+\item{factor_matrix}{a data frame of the counts for the particular gene set of interest of size nxp}
 
 \item{covariates}{a matrix nxl of the covariates to adjust (default=NULL)}
 
 \item{nperm}{number of permutations to perform to estimate the matrix epsilon (default=300)}
 }
 \value{
-The GBJ value and it's pvalue associated
+The sGBJ statistic and its associated p-value associated
 }
 \description{
-Compute the pvalues and GBJ value associated with a pathway and survival
+Compute the sGBJ statistic and its p-value quantifying a gene set expression association
+with survival
 }
 \examples{
 n <- 100
@@ -31,4 +33,5 @@ factor_matrix <- data.frame(P1 = rnorm(n = n),
                              P2 = rnorm(n = n))
 
 sGBJ::sGBJ(surv,factor_matrix, nperm = 2)
+
 }
