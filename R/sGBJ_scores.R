@@ -28,7 +28,7 @@
 #'  covariates <- data.frame(age = runif(n = n, 60, 90))
 #'
 #'  sGBJ_scores(surv,factor_matrix, nperm = 2, covariates = covariates)
-sGBJ_scores=function(surv,factor_matrix,covariates=NULL,nperm=300){
+sGBJ_scores=function(surv, factor_matrix, covariates = NULL, nperm = 300){
 
   # computation of the score vector
   lsScores <- .survival_scores(factor_matrix = factor_matrix,
@@ -41,9 +41,10 @@ sGBJ_scores=function(surv,factor_matrix,covariates=NULL,nperm=300){
                              surv = surv,
                              factor_matrix = lsScores$updatedFactor_matrix,
                              covariates = covariates,
-                             datas = lsScores$datas)
+                             dat = lsScores$datas)
 
-  scores_GBJ=list(test_stats=lsScores$Z, cor_mat=epsilon)
+  scores_GBJ <- list("test_stats" = lsScores$Z,
+                     "cor_mat" = epsilon)
 
   return(scores_GBJ)
 }

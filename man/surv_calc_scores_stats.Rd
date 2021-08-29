@@ -19,7 +19,8 @@ A list with the elements:
 \item{cor_mat}{The \code{p x p} matrix giving the pairwise correlation of every test statistic pairs.}
 }
 \description{
-An adaptation of \code{GBJ::calc_scores_stats()} to survival context. Wrapper of sGBJ_scores() function.
+An adaptation of \code{GBJ::calc_scores_stats()} to survival context.
+Wrapper of sGBJ_scores() function.
 }
 \examples{
 n <- 100

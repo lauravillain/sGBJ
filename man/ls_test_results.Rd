@@ -3,8 +3,8 @@
 \docType{data}
 \name{ls_test_results}
 \alias{ls_test_results}
-\title{A file used for testing}
+\title{A data file used for testing sGBJ}
 \description{
-A file used for testing
+A data file used for testing sGBJ
 }
 \keyword{data}

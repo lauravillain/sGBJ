@@ -7,15 +7,16 @@
 .survival_scores(factor_matrix, covariates = NULL, surv)
 }
 \arguments{
-\item{factor_matrix}{a data frame of the counts for the particular pathway of interest of size nxp}
+\item{factor_matrix}{a \code{n x p} \code{data.frame} of the expression for
+the particular gene set of interest being tested}
 
-\item{covariates}{a matrix nxl of the covariates to adjust (default=NULL)}
+\item{covariates}{a matrix nxl of the covariates to adjust. Default is \code{NULL}}
 
-\item{surv}{a surv object of size n}
+\item{surv}{a \code{\link[survival]{Surv}} object of length \code{n}}
 }
 \value{
 A list of length 3 with the updated factor_matrix (same as factor_matrix but removing columns for which survival model failed to converge), the Z matrix and the data used to fit survival model.
 }
 \description{
-Compute survival score.
+Compute the survival score
 }

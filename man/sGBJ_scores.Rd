@@ -8,13 +8,14 @@ between a gene set and survival outcome}
 sGBJ_scores(surv, factor_matrix, covariates = NULL, nperm = 300)
 }
 \arguments{
-\item{surv}{a surv object of size \code{n}}
+\item{surv}{a \code{\link[survival]{Surv}} object of length \code{n}}
 
-\item{factor_matrix}{a data frame of the counts for the particular pathway of interest of size \code{n x p}}
+\item{factor_matrix}{a \code{n x p} \code{data.frame} of the expression for the
+particular gene set of interest being tested}
 
-\item{covariates}{a matrix \code{n x l} of the covariates to adjust. Default is \code{NULL}}
+\item{covariates}{a \code{n x l} matrix of the covariates to adjust upon. Default is \code{NULL}}
 
-\item{nperm}{number of permutations performed to estimate the \code{epsilon} matrix
+\item{nperm}{number of permutations performed to estimate the \code{epsilon} matrix.
 Default is \code{300}.}
 }
 \value{

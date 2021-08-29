@@ -8,13 +8,15 @@ with survival}
 sGBJ(surv, factor_matrix, covariates = NULL, nperm = 300)
 }
 \arguments{
-\item{surv}{a surv object of size n}
+\item{surv}{a \code{\link[survival]{Surv}} object of length \code{n}}
 
-\item{factor_matrix}{a data frame of the counts for the particular gene set of interest of size nxp}
+\item{factor_matrix}{a \code{n x p} \code{data.frame} of the expression for the
+particular gene set of interest being tested}
 
-\item{covariates}{a matrix nxl of the covariates to adjust (default=NULL)}
+\item{covariates}{a \code{n x l} matrix of the covariates to adjust upon. Default is \code{NULL}}
 
-\item{nperm}{number of permutations to perform to estimate the matrix epsilon (default=300)}
+\item{nperm}{number of permutations performed to estimate the \code{epsilon} matrix.
+Default is \code{300}.}
 }
 \value{
 The sGBJ statistic and its associated p-value associated
