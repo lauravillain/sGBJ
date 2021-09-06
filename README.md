@@ -9,6 +9,8 @@ The goal of `sGBJ` is to provide an extension of the Generalized Berk-Jones test
 
 This packages implements an extension of the GBJ statistic for censored time-to-event data. It computes the sGBJ statistic and its p-value for testing the association between a gene set and a time-to-event outcome with possible adjustment on additional covariates.
 
+The main function of the package is `sGBJ()`
+
 ## Installation
 
 You can install the released version of sGBJ from [CRAN](https://CRAN.R-project.org) with:
@@ -17,5 +19,5 @@ You can install the released version of sGBJ from [CRAN](https://CRAN.R-project.
 install.packages("sGBJ")
 ```
 
-Laura Villain, Thomas Ferté & Boris Hejblum
+Laura Villain, Thomas Ferté, Rodolphe Thiébaut & Boris Hejblum
 

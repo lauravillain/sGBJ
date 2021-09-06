@@ -1,6 +1,9 @@
 #' Compute the sGBJ statistic and its p-value quantifying a gene set expression association
 #' with survival
 #'
+#'This function is the main function of the sGBJ package to perform Gene Set Analysis
+#'in the context of time-to-event outcome.
+#'
 #' @param surv a \code{\link[survival]{Surv}} object of length \code{n}
 #' @param factor_matrix a \code{n x p} \code{data.frame} of the expression for the
 #' particular gene set of interest being tested

@@ -22,8 +22,8 @@ Default is \code{300}.}
 The sGBJ statistic and its associated p-value associated
 }
 \description{
-Compute the sGBJ statistic and its p-value quantifying a gene set expression association
-with survival
+This function is the main function of the sGBJ package to perform Gene Set Analysis
+in the context of time-to-event outcome.
 }
 \examples{
 n <- 100
