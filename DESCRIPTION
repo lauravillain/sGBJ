@@ -3,7 +3,7 @@ Package: sGBJ
 Title: Survival Extension of the Generalized Berk-Jones Test for Set-Based Inference in Genomics Studies
 Version: 0.1.0
 Author: Laura Villain, Thomas Ferte, Boris Hejblum
-Maintainer: Laura Villain <laura.villain@inria.fr>
+Maintainer: Laura Villain <villain.laura@gmail.com>
 Description: Implementation of an extension of the GBJ statistic for
     survival data. It computes the sGBJ statistic and its p-value for testing 
     the association between a gene set and a time-to-event outcome with possible 
