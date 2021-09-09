@@ -2,6 +2,7 @@
 # sGBJ
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/sGBJ)](https://CRAN.R-project.org/package=sGBJ)
 [![R-CMD-check](https://github.com/lauravillain/sGBJ/workflows/R-CMD-check/badge.svg)](https://github.com/lauravillain/sGBJ/actions)
 <!-- badges: end -->
 
