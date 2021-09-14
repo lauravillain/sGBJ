@@ -2,11 +2,19 @@ Type: Package
 Package: sGBJ
 Title: Survival Extension of the Generalized Berk-Jones Test for Gene Set analysis
 Version: 0.1.0
-Authors@R: c(person("Laura Villain", "Maintainer", role ="aut", email = "villain.laura@gmail.com"),
-              person("Thomas Ferte", "Developer", role = "aut"),person("Rodolphe Thiebault", "Developer", role = "aut"),
-              person("Boris P Hejblum", "Developer", role = "aut"))
-Author: Laura Villain, Thomas Ferte, Rodolphe Thiébaut, Boris P Hejblum
-Maintainer: Laura Villain <villain.laura@gmail.com>
+Authors@R: c(person(given = "Laura",
+                    family = "Villain",
+                    role = c("aut", "cre"),
+                    email = "villain.laura@gmail.com"),
+              person(given = "Thomas",
+                    family = "Ferte",
+                    role = "aut"),
+              person(given = "Rodolphe",
+                    family = "Thiebault",
+                    role = "aut"),
+              person(given = "Boris P.",
+                    family = "Hejblum",
+                    role = "aut"))
 Description: Implements an extension of the Generalized Berk-Jones (GBJ) statistic for
     survival data, sGBJ. It computes the sGBJ statistic and its p-value for testing 
     the association between a gene set and a time-to-event outcome with possible 
