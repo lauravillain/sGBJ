@@ -2,9 +2,10 @@ Type: Package
 Package: sGBJ
 Title: Survival Extension of the Generalized Berk-Jones Test for Gene Set analysis
 Version: 0.1.0
-Authors@R:c(person("Laura Villain", "Developer", role ="aut", email = "villain.laura@gmail.com"),
+Authors@R: c(person("Laura Villain", "Maintainer", role ="aut", email = "villain.laura@gmail.com"),
               person("Thomas Ferte", "Developer", role = "aut"),person("Rodolphe Thiebault", "Developer", role = "aut"),
-              person("Boris P Hejblum", "Developer", role = "aut")) 
+              person("Boris P Hejblum", "Developer", role = "aut"))
+Author: Laura Villain, Thomas Ferte, Rodolphe Thiébaut, Boris P Hejblum
 Maintainer: Laura Villain <villain.laura@gmail.com>
 Description: Implements an extension of the Generalized Berk-Jones (GBJ) statistic for
     survival data, sGBJ. It computes the sGBJ statistic and its p-value for testing 
@@ -22,6 +23,6 @@ Suggests:
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 URL: https://github.com/lauravillain/sGBJ
 BugReports: https://github.com/lauravillain/sGBJ/issues
