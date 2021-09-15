@@ -1,6 +1,6 @@
 Type: Package
 Package: sGBJ
-Title: Survival Extension of the Generalized Berk-Jones Test for Gene Set analysis
+Title: Survival Extension of the Generalized Berk-Jones Test
 Version: 0.1.0
 Authors@R: c(person(given = "Laura",
                     family = "Villain",
