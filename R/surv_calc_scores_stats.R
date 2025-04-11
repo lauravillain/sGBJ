@@ -36,7 +36,7 @@ surv_calc_scores_stats <- function(null_model,
                                    nperm = 300){
 
   # check null_model
-  if(class(null_model) != "coxph") {
+  if(!inherits(null_model, "coxph")) {
     stop("null_model must be a 'coxph' object from survival::coxph()")
   }
   if(!any(names(null_model) == "x")) {
